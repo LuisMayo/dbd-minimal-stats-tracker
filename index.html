@@ -1,13 +1,53 @@
 <head>
     <script src="./index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css" />
 </head>
 <body>
     <h1>Stats tracker</h1>
-    <label for="killnumber">Kills</label>
-    <input id="killnumber" type="number" value="2" min="0" max="4"/>
-    <label for="survive">Did I survive?</label>
-    <input id="survive" type="checkbox"/>
-    <button onclick="addSoloMatch()">SoloQ</button>
-    <button onclick="addSwfMatch()">SWF</button>
-    <button onclick="addKillerMatch()">Killer</button>
+    <p>
+        <h2>Input</h2>
+        <label for="killnumber">Kills</label>
+        <input id="killnumber" type="number" value="2" min="0" max="4"/>
+        <label for="survive">Did I survive?</label>
+        <input id="survive" type="checkbox"/>
+        <label for="teamSize">Team size</label>
+        <input id="teamSize" type="number" value="3" min="1" max="4"/>
+        <button onclick="addSoloMatch()">SoloQ</button>
+        <button onclick="addSwfMatch()">SWF</button>
+        <button onclick="addKillerMatch()">Killer</button>
+    </p>
+    <p>
+        <h2>Stats</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>You</td>
+                    <td>Everyone but you</td>
+                    <td>Everyone</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total escape rate</td>
+                    <td id="escape-you"></td>
+                    <td id="escape-others"></td>
+                    <td id="escape-general"></td>
+                </tr>
+                <!-- <tr>
+                    <td>Solo escape Rate</td>
+                    <td id="escape-you-solo"></td>
+                    <td id="escape-others-solo"></td>
+                    <td id="escape-general-solo"></td>
+                </tr> -->
+                <tr>
+                    <td>Killrate</td>
+                    <td id="kill-you"></td>
+                    <td id="kill-others"></td>
+                    <td id="kill-general"></td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
+    <script>printStats()</script>
 </body>
