@@ -42,12 +42,23 @@ function addKillerMatch() {
 
 
 function printStats() {
+    printSurvKillerSplit();
     printTotalEscapeRate();
     printKillRate();
 }
 
+function printSurvKillerSplit() {
+    const allMatches = getAllMatches().length;
+    const survMatches = getSurvMatches().length;
+    const killerMatches = allMatches - survMatches;
+    const survPercentage = (survMatches * 100 / allMatches).toFixed(0);
+    const killerPercentage = (killerMatches * 100 / allMatches).toFixed(0);
+    document.getElementById('surv-kill-split')!.textContent = survPercentage + '/' + killerPercentage;
+}
+
 function printTotalEscapeRate() {
     const survMatches = getSurvMatches();
+    const matches = getAllMatches();
     // general
     const totalEscapes = matches.reduce((total, item) => 4 - item.kills + total, 0);
     document.getElementById('escape-general')!.textContent = ((totalEscapes * 100) / (4 * matches.length)).toFixed(0) + '%';
@@ -63,6 +74,7 @@ function printTotalEscapeRate() {
 function printKillRate() {
     const killerMatches = getKillerMatches();
     const survMatches = getSurvMatches();
+    const matches = getAllMatches();
     // general
     const totalKills = matches.reduce((total, item) => item.kills + total, 0);
     document.getElementById('kill-general')!.textContent = ((totalKills * 100) / (4 * matches.length)).toFixed(0) + '%';
@@ -74,10 +86,14 @@ function printKillRate() {
     document.getElementById('kill-others')!.textContent = (otherKills * 100 / (4 * survMatches.length)).toFixed(0) + '%';
 }
 
+function getAllMatches() {
+    return matches;
+}
+
 function getSurvMatches() {
-    return matches.filter(match => match.gamemode !== 'killer');
+    return getAllMatches().filter(match => match.gamemode !== 'killer');
 }
 
 function getKillerMatches() {
-    return matches.filter(match => match.gamemode === 'killer');
+    return getAllMatches().filter(match => match.gamemode === 'killer');
 }
