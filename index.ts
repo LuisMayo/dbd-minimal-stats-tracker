@@ -26,6 +26,7 @@ function addMatch(type: Gamemode) {
     match.gamemode = type;
     matches.push(match);
     localStorage.setItem(MATCHES, JSON.stringify(matches));
+    printStats();
 }
 
 function addSoloMatch() {
