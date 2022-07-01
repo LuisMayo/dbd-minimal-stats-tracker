@@ -6,6 +6,10 @@
     <h1>Stats tracker</h1>
     <p>
         <h2>Input</h2>
+        <p>
+            <label for="customMatch">Custom Match</label>
+            <input id="customMatch" type="checkbox"/>
+        </p>
         <label for="killnumber">Kills</label>
         <input id="killnumber" type="number" value="2" min="0" max="4"/>
         <label for="survive">Did I survive?</label>
@@ -15,10 +19,19 @@
         <button onclick="addSoloMatch()">SoloQ</button>
         <button onclick="addSwfMatch()">SWF</button>
         <button onclick="addKillerMatch()">Killer</button>
+        <p>
+            
+        </p>
     </p>
     <p>
         <h2>Stats</h2>
-        <p>Survivor/killer split: <span id="surv-kill-split"></span>%</p>
+        <p>
+            <label for="showPublicMatch">Show public Match</label>
+            <input id="showPublicMatch" type="radio" name="showRadio" onchange="printStats()" checked/>
+            <label for="showCustomMatch">Show custom Match</label>
+            <input id="showCustomMatch" type="radio" name="showRadio" onchange="printStats()"/>
+        </p>
+        <p>Survivor/killer split: <span id="surv-kill-split"></span>% (<span id="surv-kill-total"></span>)</p>
         <table border="1">
             <thead>
                 <tr>

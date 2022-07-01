@@ -8,6 +8,7 @@ class Match {
     // Only applicable if SWF
     teamSize: number | undefined;
     gamemode!: Gamemode;
+    customMatch: boolean | undefined;
 }
 
 let matches: Match[];
@@ -23,6 +24,7 @@ function addMatch(type: Gamemode) {
     match.kills = +(document.getElementById('killnumber') as HTMLInputElement).value;
     match.teamSize = +(document.getElementById('killnumber') as HTMLInputElement).value;
     match.survived = (document.getElementById('survive') as HTMLInputElement).checked;
+    match.customMatch = (document.getElementById('customMatch') as HTMLInputElement).checked;
     match.gamemode = type;
     matches.push(match);
     localStorage.setItem(MATCHES, JSON.stringify(matches));
@@ -55,6 +57,7 @@ function printSurvKillerSplit() {
     const survPercentage = (survMatches * 100 / allMatches).toFixed(0);
     const killerPercentage = (killerMatches * 100 / allMatches).toFixed(0);
     document.getElementById('surv-kill-split')!.textContent = survPercentage + '/' + killerPercentage;
+    document.getElementById('surv-kill-total')!.textContent = survMatches + '/' + killerMatches;
 }
 
 function printTotalEscapeRate() {
@@ -88,7 +91,8 @@ function printKillRate() {
 }
 
 function getAllMatches() {
-    return matches;
+    const showCustomMatches = (document.getElementById('showCustomMatch') as HTMLInputElement).checked;
+    return matches.filter(match => showCustomMatches ? match.customMatch : !match.customMatch);
 }
 
 function getSurvMatches() {
