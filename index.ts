@@ -11,6 +11,10 @@ class Match {
     customMatch: boolean | undefined;
 }
 
+function save() {
+    localStorage.setItem(MATCHES, JSON.stringify(matches));
+}
+
 let matches: Match[];
 if (localStorage.getItem(MATCHES)) {
     matches = JSON.parse(localStorage.getItem(MATCHES)!);
@@ -27,7 +31,7 @@ function addMatch(type: Gamemode) {
     match.customMatch = (document.getElementById('customMatch') as HTMLInputElement).checked;
     match.gamemode = type;
     matches.push(match);
-    localStorage.setItem(MATCHES, JSON.stringify(matches));
+    save();
     printStats();
 }
 
@@ -41,6 +45,16 @@ function addSwfMatch() {
 
 function addKillerMatch() {
     addMatch('killer');
+}
+
+function removeMatch() {
+    const index = +(document.getElementById('removeId') as HTMLInputElement)?.value;
+    if (index) {
+        matches.splice(index, 1);
+        save();
+        printStats();
+    }
+
 }
 
 
