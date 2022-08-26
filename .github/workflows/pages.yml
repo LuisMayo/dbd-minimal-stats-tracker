@@ -35,10 +35,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: install
-        run: npm install typescript
       - name: tsc
-        uses: icrawl/action-tsc@v1
+        run: npx tsc index.ts
       - name: pack
         run: mkdir build && cp index.* build/
       - name: Upload artifact
