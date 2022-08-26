@@ -31,7 +31,7 @@ jobs:
       with:
         node-version: 12
     - name: install
-      run: npm install
+      run: npm install typescript
     - name: tsc
       uses: icrawl/action-tsc@v1
   deploy:
