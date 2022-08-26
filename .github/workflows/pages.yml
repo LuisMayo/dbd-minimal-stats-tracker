@@ -39,11 +39,13 @@ jobs:
         run: npm install typescript
       - name: tsc
         uses: icrawl/action-tsc@v1
+      - name: pack
+        run: mkdir build && cp index.* build/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: 'index.*'
+          path: 'build'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
