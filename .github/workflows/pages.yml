@@ -35,6 +35,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18
+      - name: Install typescript
+        run: npm i typescript
       - name: tsc
         run: npx tsc index.ts
       - name: pack
