@@ -11,15 +11,20 @@ class Match {
     customMatch: boolean | undefined;
 }
 
-function save() {
-    localStorage.setItem(MATCHES, JSON.stringify(matches));
-}
+const updateArr = [{
+    id: '6.1.0',
+    timestamp: 1658254620000
+}];
 
 let matches: Match[];
 if (localStorage.getItem(MATCHES)) {
     matches = JSON.parse(localStorage.getItem(MATCHES)!);
 } else {
     matches = [];
+}
+
+function save() {
+    localStorage.setItem(MATCHES, JSON.stringify(matches));
 }
 
 function addMatch(type: Gamemode) {
@@ -56,7 +61,6 @@ function removeMatch() {
     }
 
 }
-
 
 function printStats() {
     printSurvKillerSplit();
@@ -105,8 +109,21 @@ function printKillRate() {
 }
 
 function getAllMatches() {
+    let filteredMatches = matches;
+    // Custom matches
     const showCustomMatches = (document.getElementById('showCustomMatch') as HTMLInputElement).checked;
-    return matches.filter(match => showCustomMatches ? match.customMatch : !match.customMatch);
+    filteredMatches = filteredMatches.filter(match => showCustomMatches ? match.customMatch : !match.customMatch);
+    // Updates
+    const selectedUpdate = (document.getElementById('patch') as HTMLInputElement).value;
+    if (selectedUpdate !== 'all') {
+        const updateIndex = updateArr.findIndex(updateItem => updateItem.id === selectedUpdate);
+        const minTimestampIndex = updateIndex;
+        const maxTimestampIndex = updateIndex + 1;
+        const minTimestamp = minTimestampIndex === -1 ? 0 : updateArr[minTimestampIndex].timestamp;
+        const maxTimestamp = maxTimestampIndex >= updateArr.length ? Number.POSITIVE_INFINITY : updateArr[maxTimestampIndex].timestamp;
+        filteredMatches = filteredMatches.filter(match => match.timestamp > minTimestamp && match.timestamp <= maxTimestamp);
+    }
+    return filteredMatches;
 }
 
 function getSurvMatches() {
