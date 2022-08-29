@@ -34,7 +34,7 @@ jobs:
       - name: install node
         uses: actions/setup-node@v1
         with:
-          node-version: latest
+          node-version: 18
       - name: tsc
         run: npx tsc index.ts
       - name: pack
