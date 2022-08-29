@@ -38,7 +38,7 @@ jobs:
       - name: Install typescript
         run: npm i typescript
       - name: tsc
-        run: npx tsc index.ts
+        run: npx tsc --lib "ES2020" index.ts
       - name: pack
         run: mkdir build && cp index.* build/
       - name: Upload artifact
